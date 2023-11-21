@@ -52,3 +52,24 @@ roleRef:
   kind: ClusterRole
   name: roboshop-cluster-reader
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::781848612553:role/eksctl-eks-spot-cluster-nodegroup--NodeInstanceRole-ScqA2RkOzyE7
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: |
+    - groups:
+      - roboshop-admin
+      userarn: arn:aws:iam::781848612553:user/chandu
+      username: chandu    
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2023-11-21T09:53:06Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "1271"
+  uid: a39a4149-55e9-4fd7-9254-cf0a1afb41aa  
